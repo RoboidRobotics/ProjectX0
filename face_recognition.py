@@ -14,11 +14,11 @@ __opencv_version__ = r'4.1.1'
 
 import sys
 import cv2 as cv
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+#import numpy as np
+#import matplotlib.pyplot as plt
+#import matplotlib.image as mpimg
 
-print(cv.__file__)
+
 if(__opencv_version__ != cv.__version__):
     print('WARNING: The OpenCV version being used ({}) is different from the OpenCV version this module was written in! ({})'.format(cv.__version__, __opencv_version__))
 
