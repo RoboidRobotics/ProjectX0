@@ -51,17 +51,24 @@ def detect_faces(image):
 
 # Using camera
 cap = cv.VideoCapture(0) # The Parameter is the index of the camera
-while 1:
+if not cap.isOpened():
+    print("Unable to capture camera")
+while cap.isOpened():
     ret, image = cap.read()  # Read each frame as an image
     # test_image = cv.imread(image)
-    result_image = detect_faces(image)  # detect the faces
+    if ret:
+        result_image = detect_faces(image)  # detect the faces
 
-    # #show the image and waits for a key press before exiting
-    cv.imshow('Detected Faces', result_image)
-    key = cv.waitKey(1) #waits for 2 milliseconds for a key press on a OpenCV window
-    if key == 113: # it breaks when q is pressed
+        #TODO: change from an image display to a video display
+        # #show the image and waits for a key press before exiting
+        cv.imshow('Detected Faces', result_image)
+        key = cv.waitKey(1) #waits for 2 milliseconds for a key press on a OpenCV window
+        if key == 113: # it breaks when q is pressed
+            break
+    else:
+        print("Unable to get video frame from camera")
         break
-cap.release() 
+cap.release()
 cv.destroyAllWindows()
 
 
