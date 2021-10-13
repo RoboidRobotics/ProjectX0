@@ -16,18 +16,13 @@ print(cv.__file__)
 if(__opencv_version__ != cv.__version__):
     print('WARNING: The OpenCV version being used ({}) is different from the OpenCV version this module was written in! ({})'.format(cv.__version__, __opencv_version__))
 
-
 __training_xml__ = cv.data.haarcascades + 'haarcascade_frontalface_default.xml'
 __cascade__ = cv.CascadeClassifier(__training_xml__) #load the already-trained facial-recongition model
-
-
 
 
 #specify which detection model to use
 def use_model(cascade):
     __cascade__ = cascade
-
-
 
 #given an image and a scale factor, find faces in an image and return that image with rectangles around the faces
 def detect_faces(image):
@@ -50,17 +45,6 @@ def detect_faces(image):
     #cv.imshow('Detected Faces', image_copy)
     #cv.waitKey(0)
     return image_copy
-
-
-
-
-
-
-
-
-
-
-
 
 
 # FOR TESTEING (code is run only when called from command line)
