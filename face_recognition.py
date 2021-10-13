@@ -35,6 +35,7 @@ def detect_faces(image):
     image_gray = cv.cvtColor(image, cv.COLOR_RGB2GRAY) #create a grayscale copy of the image (used for face detection)
 
     #find the faces.
+    #TODO: Have an explanation as to how 'detectMultiScale' works so we can better-utilize scaleFactor and minNeighbors
     #** scaleFactor is a parameter specifying how much the image size is reduced at each image scale.
     #** minNeighbors is a parameter specifying how many neighbors each candidate rectangle should have to retain it.
     faces_rects = __cascade__.detectMultiScale(image_gray, scaleFactor = 1.3, minNeighbors = 6)
@@ -50,6 +51,7 @@ def detect_faces(image):
 
 
 # Using camera
+#TODO: add some dialog to select which camera to use? might not be necessary
 cap = cv.VideoCapture(0) # The Parameter is the index of the camera
 if not cap.isOpened():
     print("Unable to capture camera")
