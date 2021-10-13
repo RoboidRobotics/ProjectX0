@@ -1,10 +1,5 @@
-# AUTHOR: Nicholas Thor Page
 # REFRENCED CODE:
 #   https://www.datacamp.com/community/tutorials/face-detection-python-opencv
-# CONTACT:
-#   thor@thepages.net
-#   npage2@gmu.edu
-#   +1-434-218-8241 (text preferred)
 #
 # DATE: October 12th, 2021
 # DESCRIPTION: This program is meant to provide facial-recognition capabilities to the rest of the project.
@@ -71,7 +66,6 @@ def detect_faces(image):
 # FOR TESTEING (code is run only when called from command line)
 if __name__ == '__main__':
     import sys
-
 
     test_image = cv.imread(sys.argv[1]) #load the image from the file specified from the command line
     result_image = detect_faces(test_image) #detect the faces
