@@ -42,12 +42,15 @@ def detect_faces(image):
 
     #print how many faces were found
     print('Faces found: {}'.format(len(faces_rects)))
+    return faces_rects
 
+
+
+def draw_rects(image, rects):
     #draw rectangles around the bounds of the detected faces
-    for (x,y,w,h) in faces_rects:
+    for (x,y,w,h) in rects:
         #draws a red rectangle with a thickness of 2
         cv.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
-    return image
 
 
 # Using camera
