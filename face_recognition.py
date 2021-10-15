@@ -53,28 +53,32 @@ def draw_rects(image, rects):
         cv.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
 
 
-# Using camera
-#TODO: add some dialog to select which camera to use? might not be necessary
-cap = cv.VideoCapture(0) # The Parameter is the index of the camera
-if not cap.isOpened():
-    print("Unable to capture camera")
-while cap.isOpened():
-    ret, image = cap.read()  # Read each frame as an image
-    # test_image = cv.imread(image)
-    if ret:
-        result_image = detect_faces(image)  # detect the faces
 
-        #TODO: change from an image display to a video display
-        # #show the image and waits for a key press before exiting
-        cv.imshow('Detected Faces', result_image)
-        key = cv.waitKey(1) #waits for 2 milliseconds for a key press on a OpenCV window
-        if key == 113: # it breaks when q is pressed
+
+if __name__ == "__main__":
+    # Using camera
+    #TODO: add some dialog to select which camera to use? might not be necessary
+    cap = cv.VideoCapture(0) # The Parameter is the index of the camera
+    if not cap.isOpened():
+        print("Unable to capture camera")
+    while cap.isOpened():
+        ret, image = cap.read()  # Read each frame as an image
+        # test_image = cv.imread(image)
+        if ret:
+            face_rects = detect_faces(image)  # detect the faces
+            draw_rects(image, face_rects)
+
+            #TODO: change from an image display to a video display
+            # #show the image and waits for a key press before exiting
+            cv.imshow('Detected Faces', image)
+            key = cv.waitKey(1) #waits for 2 milliseconds for a key press on a OpenCV window
+            if key == 113: # it breaks when q is pressed
+                break
+        else:
+            print("Unable to get video frame from camera")
             break
-    else:
-        print("Unable to get video frame from camera")
-        break
-cap.release()
-cv.destroyAllWindows()
+    cap.release()
+    cv.destroyAllWindows()
 
 
 # FOR TESTEING (code is run only when called from command line)
