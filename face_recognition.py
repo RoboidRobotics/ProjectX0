@@ -92,7 +92,7 @@ if __name__ == "__main__":
 #     cv.destroyAllWindows()
 
 # For testing from code
-# image = r'/Users/rediettadesse/Documents/GitHub/ProjectX0/image2.jpeg' #image full path
+# image = r'./Documents/GitHub/ProjectX0/image2.jpeg' #image full path
 # test_image =  cv.imread(image) #load the image from the file specified from the command line
 # result_image = detect_faces(test_image)  #detect the faces
 # #show the image and waits for a key press before exiting
