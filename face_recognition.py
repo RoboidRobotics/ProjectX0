@@ -14,6 +14,7 @@ __opencv_version__ = r'4.1.1'
 
 import sys
 import cv2 as cv
+# import BotInterface as bi
 #import numpy as np
 #import matplotlib.pyplot as plt
 #import matplotlib.image as mpimg
@@ -38,13 +39,11 @@ def detect_faces(image):
     #TODO: Have an explanation as to how 'detectMultiScale' works so we can better-utilize scaleFactor and minNeighbors
     #** scaleFactor is a parameter specifying how much the image size is reduced at each image scale.
     #** minNeighbors is a parameter specifying how many neighbors each candidate rectangle should have to retain it.
-    faces_rects = __cascade__.detectMultiScale(image_gray, scaleFactor = 1.3, minNeighbors = 6)
+    faces_rects = __cascade__.detectMultiScale(image_gray, scaleFactor = 1.3, minNeighbors = 5)
 
     #print how many faces were found
     print('Faces found: {}'.format(len(faces_rects)))
     return faces_rects
-
-
 
 def draw_rects(image, rects):
     #draw rectangles around the bounds of the detected faces
@@ -52,12 +51,8 @@ def draw_rects(image, rects):
         #draws a red rectangle with a thickness of 2
         cv.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
 
-
-
-
 if __name__ == "__main__":
     # Using camera
-    #TODO: add some dialog to select which camera to use? might not be necessary
     cap = cv.VideoCapture(0) # The Parameter is the index of the camera
     if not cap.isOpened():
         print("Unable to capture camera")
@@ -95,7 +90,7 @@ if __name__ == "__main__":
 # image = r'./Documents/GitHub/ProjectX0/image2.jpeg' #image full path
 # test_image =  cv.imread(image) #load the image from the file specified from the command line
 # result_image = detect_faces(test_image)  #detect the faces
-# #show the image and waits for a key press before exiting
+#show the image and waits for a key press before exiting
 
 # cv.imshow('Detected Faces', result_image)
 # # print(cv.waitKey(0))
