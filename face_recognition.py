@@ -14,8 +14,7 @@ __opencv_version__ = r'4.1.1'
 
 import sys
 import cv2 as cv
-import BotInterface as bi
-
+# import BotInterface as bi
 #import numpy as np
 #import matplotlib.pyplot as plt
 #import matplotlib.image as mpimg
@@ -38,7 +37,6 @@ def detect_faces(image):
 
     #find the faces.
     #TODO: Have an explanation as to how 'detectMultiScale' works so we can better-utilize scaleFactor and minNeighbors
-
     #** scaleFactor is a parameter specifying how much the image size is reduced at each image scale.
     #** minNeighbors is a parameter specifying how many neighbors each candidate rectangle should have to retain it.
     faces_rects = __cascade__.detectMultiScale(image_gray, scaleFactor = 1.3, minNeighbors = 5)
@@ -47,16 +45,11 @@ def detect_faces(image):
     print('Faces found: {}'.format(len(faces_rects)))
     return faces_rects
 
-
-
 def draw_rects(image, rects):
     #draw rectangles around the bounds of the detected faces
     for (x,y,w,h) in rects:
         #draws a red rectangle with a thickness of 2
         cv.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
-
-
-
 
 if __name__ == "__main__":
     # Using camera
