@@ -37,7 +37,6 @@ def move(axis,angle): # Axis is "x","y","xy". Angle is from 0 - 180
             s1.ChangeDutyCycle(angle)  
             s2.ChangeDutyCycle(angle)
             sleep(0.5)
-
     except KeyboardInterrupt:
         s1.stop()
         s2.stop()

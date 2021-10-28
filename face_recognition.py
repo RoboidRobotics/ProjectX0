@@ -14,7 +14,7 @@ __opencv_version__ = r'4.1.1'
 
 import sys
 import cv2 as cv
-import BotInterface as bi
+# import BotInterface as bi
 
 #import numpy as np
 #import matplotlib.pyplot as plt
@@ -51,9 +51,15 @@ def detect_faces(image):
 
 def draw_rects(image, rects):
     #draw rectangles around the bounds of the detected faces
+    xx,yy,ww,hh = 0,0,0,0
+    area = 0
     for (x,y,w,h) in rects:
         #draws a red rectangle with a thickness of 2
-        cv.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        if w*h > area:
+            area = w*h
+            xx,yy,ww,hh = x,y,w,h
+        cv.rectangle(image, (x, y), (x + w-15, y + h-15), (0, 255,0), 2)
+    cv.rectangle(image, (xx, yy), (xx + ww, yy + hh), (0, 0, 255), 2) # The closest person has a red rectangle
 
 
 
@@ -83,7 +89,7 @@ if __name__ == "__main__":
     cv.destroyAllWindows()
 
 
-# FOR TESTEING (code is run only when called from command line)
+
 # if __name__ == '__main__':
 #     import sys
 #     test_image = cv.imread(sys.argv[1])  #load the image from the file specified from the command line
@@ -94,12 +100,13 @@ if __name__ == "__main__":
 #     cv.destroyAllWindows()
 
 # For testing from code
-# image = r'./Documents/GitHub/ProjectX0/image2.jpeg' #image full path
+# image = r'/Users/rediettadesse/Documents/GitHub/ProjectX0/image3.jpeg' #image full path
 # test_image =  cv.imread(image) #load the image from the file specified from the command line
 # result_image = detect_faces(test_image)  #detect the faces
-#show the image and waits for a key press before exiting
+# draw_rects(test_image,result_image)
+# #show the image and waits for a key press before exiting
 
-# cv.imshow('Detected Faces', result_image)
-# # print(cv.waitKey(0))
+# cv.imshow('Detected Faces', test_image)
+# # # print(cv.waitKey(0))
 # cv.waitKey(0)
 # cv.destroyAllWindows()
