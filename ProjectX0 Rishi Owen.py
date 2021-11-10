@@ -23,7 +23,7 @@ if(__opencv_version__ != cv.__version__):
     print('WARNING: The OpenCV version being used ({}) is different from the OpenCV version this module was written in! ({})'.format(cv.__version__, __opencv_version__))
 
 __training_xml__ = cv.data.haarcascades + 'haarcascade_frontalface_default.xml'
-__cascade__ = cv.CascadeClassifier(__training_xml__) #load the already-trained facial-recognition model
+__cascade__ = cv.CascadeClassifier(__training_xml__) #load the already-trained facial-recongition model
 
 
 #specify which detection model to use
@@ -42,12 +42,29 @@ def detect_faces(image):
     #print how many faces were found
     print('Faces found: {}'.format(len(faces_rects)))
 
-    #draw rectangles around the bounds of the detected faces
+    #creates variables needed to check for largest box
+    size = 0
+    xf = 0
+    yf = 0
+    wf = 0
+    hf = 0
+
+    #loops through each recorded face
     for (x,y,w,h) in faces_rects:
+
+        #if data is largest, store in variables
+        if size < (w*h):
+            size = (w*h)
+            xf = x
+            yf = y
+            wf = w
+            hf = h
+
         #draws a red rectangle with a thickness of 2
-        cv.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+    cv.rectangle(image, (xf, yf), (xf + wf, yf + hf), (0, 0, 255), 2)
     return image
 
+username = "dickless dennis"
 
 # Using camera
 cap = cv.VideoCapture(0) # The Parameter is the index of the camera
@@ -61,11 +78,20 @@ while 1:
     key = cv.waitKey(1) #waits for 2 milliseconds for a key press on a OpenCV window
     if key == 113: # it breaks when q is pressed
         break
-cap.release() 
+
+    elif key == 32:
+
+        stringname = f"{username}_facerecog.jpg"
+        cv.imwrite(stringname, image)
+        print("Picture recorded, verification in process")
+        break
+
+
+cap.release()
 cv.destroyAllWindows()
 
 
-# FOR TESTEING (code is run only when called from command line)
+# FOR TESTING (code is run only when called from command line)
 # if __name__ == '__main__':
 #     import sys
 #     test_image = cv.imread(sys.argv[1])  #load the image from the file specified from the command line

@@ -1,0 +1,2 @@
+import face_recognition
+face_recognition.detect_faces()
