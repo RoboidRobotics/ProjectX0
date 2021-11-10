@@ -25,7 +25,7 @@ if(__opencv_version__ != cv.__version__):
     print('WARNING: The OpenCV version being used ({}) is different from the OpenCV version this module was written in! ({})'.format(cv.__version__, __opencv_version__))
 
 __training_xml__ = cv.data.haarcascades + 'haarcascade_frontalface_default.xml'
-__cascade__ = cv.CascadeClassifier(__training_xml__) #load the already-trained facial-recongition model
+__cascade__ = cv.CascadeClassifier(__training_xml__) #load the already-trained facial-recognition model
 
 
 #specify which detection model to use
@@ -89,7 +89,7 @@ if __name__ == "__main__":
     cv.destroyAllWindows()
 
 
-# FOR TESTEING (code is run only when called from command line)
+# FOR TESTING (code is run only when called from command line)
 # if __name__ == '__main__':
 #     import sys
 #     test_image = cv.imread(sys.argv[1])  #load the image from the file specified from the command line
