@@ -89,7 +89,7 @@ if __name__ == "__main__":
     cv.destroyAllWindows()
 
 
-# FOR TESTEING (code is run only when called from command line)
+# FOR TESTING (code is run only when called from command line)
 # if __name__ == '__main__':
 #     import sys
 #     test_image = cv.imread(sys.argv[1])  #load the image from the file specified from the command line
