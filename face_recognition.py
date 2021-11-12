@@ -25,7 +25,6 @@ size =(1300,800)
 
 if(__opencv_version__ != cv.__version__):
     print('WARNING: The OpenCV version being used ({}) is different from the OpenCV version this module was written in! ({})'.format(cv.__version__, __opencv_version__))
-
 __training_xml__ = cv.data.haarcascades + 'haarcascade_frontalface_alt2.xml'
 __cascade__ = cv.CascadeClassifier(__training_xml__) #load the already-trained facial-recongition model
 
@@ -110,7 +109,6 @@ if __name__ == "__main__":
             break
     cap.release()
     cv.destroyAllWindows()
-
 
 
 # if __name__ == '__main__':
