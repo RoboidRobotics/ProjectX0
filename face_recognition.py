@@ -14,17 +14,19 @@ __opencv_version__ = r'4.1.1'
 
 import sys
 import cv2 as cv
+import math as ma
 # import BotInterface as bi
 
 #import numpy as np
 #import matplotlib.pyplot as plt
 #import matplotlib.image as mpimg
 
+size =(1300,800)
 
 if(__opencv_version__ != cv.__version__):
     print('WARNING: The OpenCV version being used ({}) is different from the OpenCV version this module was written in! ({})'.format(cv.__version__, __opencv_version__))
 
-__training_xml__ = cv.data.haarcascades + 'haarcascade_frontalface_default.xml'
+__training_xml__ = cv.data.haarcascades + 'haarcascade_frontalface_alt2.xml'
 __cascade__ = cv.CascadeClassifier(__training_xml__) #load the already-trained facial-recongition model
 
 
@@ -44,27 +46,47 @@ def detect_faces(image):
     faces_rects = __cascade__.detectMultiScale(image_gray, scaleFactor = 1.3, minNeighbors = 5)
 
     #print how many faces were found
-    print('Faces found: {}'.format(len(faces_rects)))
+    # print('Faces found: {}'.format(len(faces_rects)))
     return faces_rects
 
 
-
+def createLine(im,st, en,co):
+    cv.line(im,st, en,co , 5) 
 def draw_rects(image, rects):
     #draw rectangles around the bounds of the detected faces
     xx,yy,ww,hh = 0,0,0,0
     area = 0
-    for (x,y,w,h) in rects:
+    
+    stat = False    
+    for (x, y, w, h) in rects:
+        stat = True
         #draws a red rectangle with a thickness of 2
         if w*h > area:
             area = w*h
             xx,yy,ww,hh = x,y,w,h
-        cv.rectangle(image, (x, y), (x + w-15, y + h-15), (0, 255,0), 2)
-    cv.rectangle(image, (xx, yy), (xx + ww, yy + hh), (0, 0, 255), 2) # The closest person has a red rectangle
+        cv.rectangle(image, (x, y), (x + w - 15, y + h - 15), (0, 255, 0), 2)
+    if(stat):
+        start = ((int)(size[0] / 2),(int) (size[1] / 2))
+        tl = ((int)(xx + (ww / 2)), (int)(yy + (hh / 2)))
+
+        th = ((int)(size[0] / 2), (int)(yy + (hh / 2)))
+        thd = start[1] - th[1]
+
+        tw = ((int)(xx + (ww / 2)), (int)(size[1] / 2))
+        twd = start[0] - tl[0]
+        
+        createLine(image, start, tl , (255,0,0))
+        createLine(image, start, th, (0, 255, 0))
+        createLine(image, th, tl, (0, 0, 255))
+        
+        print("Angle = ",ma.tan(twd/(thd+0.001)))
+        cv.rectangle(image, (xx, yy), (xx + ww, yy + hh), (0, 0, 255), 2) # The closest person has a red rectangle
 
 
 
 
 if __name__ == "__main__":
+    # bi.Calibrat()
     # Using camera
     cap = cv.VideoCapture(0) # The Parameter is the index of the camera
     if not cap.isOpened():
@@ -78,6 +100,7 @@ if __name__ == "__main__":
 
             #TODO: change from an image display to a video display
             # #show the image and waits for a key press before exiting
+            image = cv.resize(image, size)
             cv.imshow('Detected Faces', image)
             key = cv.waitKey(1) #waits for 2 milliseconds for a key press on a OpenCV window
             if key == 113: # it breaks when q is pressed
